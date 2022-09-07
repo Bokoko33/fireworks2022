@@ -5,8 +5,8 @@ uniform vec2 uMouseDelta;
 uniform float uPower;
 
 const float friction = 0.96;
-const float powerLevel = 24.0;
-const float bigPowerLevel = 8.0;
+const float powerLevel = 30.0;
+const float bigPowerLevel = 10.0;
 const float bigFlagRatio = 0.99;
 const vec3 gravity = vec3(0.0, -1.0, 0.0) * 0.3;
 
