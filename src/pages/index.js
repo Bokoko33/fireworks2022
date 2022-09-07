@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '~/styles/pages/PageIndex.module.scss';
-import { SampleComponent } from '~/components/SampleComponent';
+import { WebGLCanvas } from '~/components/WebGLCanvas';
 
 export default function Index() {
   return (
@@ -12,9 +11,8 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>TOPページ</h1>
-      <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-      <SampleComponent text="サンプル" />
+      <h1 className={styles.title}>Fireworks 2022 by bokoko33</h1>
+      <WebGLCanvas />
     </div>
   );
 }
