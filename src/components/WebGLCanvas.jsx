@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Stats } from '@react-three/drei'; // ← Enable when testing
+// import { Stats } from '@react-three/drei'; // ← Enable when testing
 import { Fireworks } from '~/components/Fireworks';
 
 export const WebGLCanvas = () => {
@@ -11,7 +11,7 @@ export const WebGLCanvas = () => {
     >
       <color attach="background" args={[0x000000]} />
       {/* Enable when testing ↓ */}
-      <Stats />
+      {/* <Stats /> */}
       <Suspense fallback={null}>
         <Fireworks />
       </Suspense>
