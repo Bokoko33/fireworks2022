@@ -5,6 +5,11 @@
 .root {
   width: 100%;
   height: 100vh;
+
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
 }
 
 .title {

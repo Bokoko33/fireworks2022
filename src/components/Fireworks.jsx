@@ -8,6 +8,7 @@ import { Mouse2D } from '~/vendors/Mouse2D';
 import { DefaultScene } from '~/components/DefaultScene';
 import { EffectedScene } from '~/components/EffectedScene';
 import { Handle } from '~/components/Handle';
+import { useDevice } from '~/hooks/Device';
 
 const WIDTH = 32;
 const HEIGHT = 32;
@@ -17,6 +18,8 @@ export const Fireworks = () => {
   const { gl, camera, size } = useThree();
   const fireRef = useRef(null);
   const handleRef = useRef(null);
+
+  const { isTouch } = useDevice();
 
   // windowピッタリのカメラ距離
   const fovRad = (camera.fov / 2) * (Math.PI / 180);
@@ -105,11 +108,15 @@ export const Fireworks = () => {
 
     window.addEventListener('mousedown', holdOn);
     window.addEventListener('mouseup', holdOut);
+    window.addEventListener('touchstart', holdOn);
+    window.addEventListener('touchend', holdOut);
     window.addEventListener('blur', holdOut);
 
     return () => {
       window.removeEventListener('mousedown', holdOn);
       window.removeEventListener('mouseup', holdOut);
+      window.removeEventListener('touchstart', holdOn);
+      window.removeEventListener('touchend', holdOut);
       window.removeEventListener('blur', holdOut);
     };
   }, []);
@@ -117,17 +124,22 @@ export const Fireworks = () => {
   useFrame(() => {
     if (!(mouseRef.current && prevVec2Ref.current)) return;
 
-    const mouseX = mouseRef.current?.relativePositionForGL.x || 0;
-    const mouseY = mouseRef.current?.relativePositionForGL.y || 0;
+    // マウス操作
+    const mouseDelta = { x: 0, y: 0 };
+    if (!isTouch) {
+      const mouseX = mouseRef.current?.relativePositionForGL.x || 0;
+      const mouseY = mouseRef.current?.relativePositionForGL.y || 0;
 
-    // 前フレームとのマウス位置差分
-    const deltaX = mouseX - prevVec2Ref.current.x;
-    const deltaY = mouseY - prevVec2Ref.current.y;
-    const mouseDelta = { x: deltaX, y: -deltaY };
+      // 前フレームとのマウス位置差分
+      mouseDelta.x = mouseX - prevVec2Ref.current.x;
+      mouseDelta.y = mouseY - prevVec2Ref.current.y;
 
-    // 持ち手オブジェクトを動かす
-    handleRef.current.position.set(mouseX, -mouseY, 0);
-    handleRef.current.rotation.z = -mouseX * 0.001;
+      // 持ち手オブジェクトを動かす
+      handleRef.current.position.set(mouseX, -mouseY, 0);
+      handleRef.current.rotation.z = -mouseX * 0.001;
+    } else {
+      handleRef.current.position.set(0, -window.innerHeight * 0.3, 0);
+    }
 
     // 持ち手の方向を計算
     const direction = new THREE.Vector4(0, 1, 0, 0); // y方向が持ち手の先頭
