@@ -21,17 +21,6 @@ $design-size: (
 $color-white: #ffffff;
 $color-black: #072736;
 
-// font-family
-$font-yu-go: '游ゴシック体', YuGothic, '游ゴシック Medium', 'Yu Gothic Medium',
-  '游ゴシック', 'Yu Gothic', sans-serif;
-
-// z-index
-$z-index-global-header: 100;
-
-// layout
-$global-header-height-pc: 88;
-$global-header-height-sp: 120;
-
 // animation
 $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 $ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
